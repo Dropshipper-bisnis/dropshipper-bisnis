@@ -109,7 +109,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h1>Claim Your Exclusive Gift Now</h1>
         <p class="subtitle">Don't miss this special opportunity — available only for a limited time!</p>
         
-        <a href="https://app.glitchy.com/offers/4913" class="cta-button" target="_blank" rel="noopener noreferrer">
+        <a href="https://linkthem.net/aff_c?offer_id=4913&aff_id=203181" class="cta-button" target="_blank" rel="noopener noreferrer">
             🎁 Claim My Offer
         </a>
         
@@ -133,5 +133,35 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=2493575644388027&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+
+<!-- Parameter Forwarding Script -->
+<script>
+(function () {
+  var OPEN = '{' + '{';
+  var KEYS = ['fbclid','ad_id','adset_id','campaign_id','campaign_name','placement','source'];
+  function isMacro(v){ return !v || v.indexOf(OPEN) !== -1 || v.indexOf('%7B%7B') !== -1; }
+  function grab(){
+    var s = {}, qs = new URLSearchParams(location.search);
+    KEYS.forEach(function (k) {
+      var v = qs.get(k);
+      if (v && !isMacro(v)) sessionStorage.setItem('q_' + k, v);
+      var saved = sessionStorage.getItem('q_' + k);
+      if (saved && !isMacro(saved)) s[k] = saved;
+    });
+    return s;
+  }
+  grab();
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href*="aff_c"]');
+    if (!a) return;
+    var s = grab();
+    try {
+      var u = new URL(a.href, location.href);
+      Object.keys(s).forEach(function (k) { u.searchParams.set(k, s[k]); });
+      a.href = u.toString();
+    } catch (err) {}
+  }, true);
+})();
+</script>
 </body>
 </html>
